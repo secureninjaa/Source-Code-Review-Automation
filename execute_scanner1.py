@@ -34,7 +34,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 #os.chdir(p)
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
 
-#path='c:\security_automation\SonarQube_Integration\sonar-scanner-3.3.0.1492'
 filename=''
 global p
 
@@ -90,16 +89,12 @@ def main(argv):
     from P4 import P4, P4Exception  # Import the module
     p4 = P4()  # Create the P4 instance
     p4.port = "1666"
-    p4.user = "Administrator"
-    # p4.client = "divya"            # Set some environment variables
+    p4.user = "Administrator"                        #name of the user
+    
 
     try:  # Catch exceptions with try/except
       p4.connect()  # Connect to the Perforce server
       print("connected")
-
-      # print("give the client perforce working directory")
-      #client_root = p
-        # Run "p4 edit file.txt"
       
 
       p4.disconnect()  # Disconnect from the server
@@ -113,12 +108,12 @@ def main(argv):
 
     try:
       p4.connect()
-      # Convert client spec into a Python dictionary
+      
       client = p4.fetch_client("-t", template)
       client._root = client_root
       p4.save_client(client)
-      info = p4.run("info")  # Run "p4 info" (returns a dict)
-      for key in info[0]:  # and display all key-value pairs
+      info = p4.run("info")  
+      for key in info[0]:  
         print(key, "=", info[0][key])
       p4.run("edit", "file.txt")
 
